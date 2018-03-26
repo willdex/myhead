@@ -25,13 +25,21 @@
 
                   <div class="form-group">
 
-                    <label style="font-size: 18px;">Asunto:</label><br>
-                    <input type="text" class="form-control" name="asunto" id="asunto" placeholder="Asunto" required style="border-radius: 5px; width: 85%;">
+                       <?php $convo = DB::select('SELECT * FROM convocatoria WHERE estado="activa"'); 
+                   ?>
+                    
+                    <?php echo Form::label('titulo','Convocatorias Activas:'); ?>
 
-                        <br>
+                  <select name="asunto" id="asunto" class="form-control selectpicker" data-live-search="true" required>
+                    <option value=""> Seleccione la Convocatoria... </option>
+                      <?php foreach($convo as $movC): ?>
+                        <option value="<?php echo e($movC->titulo); ?>"><?php echo e($movC->titulo); ?></option>
+                      <?php endforeach; ?>
+                  </select>
+                  <br><br>
 
                     <label style="font-size: 18px;">Mensaje:</label>
-                    <textarea class="form-control" rows="5" name="mensaje" id="mensaje" placeholder="Mensaje" required style="border-radius: 5px; width: 85%;"></textarea>
+                    <textarea class="form-control" rows="5" name="mensaje" id="mensaje" placeholder="Mensaje" required style="border-radius: 5px; width: 100%;"></textarea>
 
                     <input type="hidden" name="correo" value="<?php echo Auth::user()->correo; ?>">
                     
